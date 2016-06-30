@@ -8,10 +8,19 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
   },
 
   received: function(data) {
-    // Called when there's incoming data on the websocket for this channel
+    alert(data['message']);
   },
 
-  speak: function() {
-    return this.perform('speak');
+  speak: function(message) {
+    console.log("speak function called on RoomChannel");
+    return this.perform('speak', {message: message});
+  }
+});
+
+$(document).on('keypress', '[data-behaviour~=room_speaker]', function(e){
+  if(e.keyCode === 13){
+    App.room.speak(event.target.value);
+    event.target.value = '';
+    e.preventDefault();
   }
 });
