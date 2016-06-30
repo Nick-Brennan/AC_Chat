@@ -8,7 +8,8 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
   },
 
   received: function(data) {
-    alert(data['message']);
+    console.log(data['message']);
+    $('#messages').append(data['message']);
   },
 
   speak: function(message) {
